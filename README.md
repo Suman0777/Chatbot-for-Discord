@@ -28,13 +28,17 @@ This bot works as an intelligent assistant capable of handling conversational qu
     Ensures stable performance even during failures.
 
 ---
+## **⚠️Aleart **
+
+* **Make sure to create the .env file and add the gimini api and the discord token. And you are ready to make the project live and also don't forget to download the `dotenv` file by the npm page `npm i dotenv`**
+---
 
 ## 🛠️ **Tech Stack**
 
-* **Node.js**
-* **discord.js (v14+)**
-* **Google Generative AI SDK (`@google/generative-ai`)**
-* **dotenv** (for safe secret management)
+* **Node.js** 
+* **discord.js (v14+)** `npm i discord.js`
+* **Google Generative AI SDK (`@google/generative-ai`)** `npm i @google/generative-ai`
+* **dotenv** (for safe secret management) `npm i dotenv`
 
 ---
 
