@@ -27,25 +27,31 @@ client.on("messageCreate", async (message) => {
         await message.channel.sendTyping();
 
         const prompt = message.content.replace(/<@!?[0-9]+>/, '').trim();
-        if (!prompt) {
-            return await message.reply("Hello! How can I help you?");
-        }
+        if (!prompt) return await message.reply("Hello! How can I help you?");
+        
         const result = await model.generateContent(prompt);
         const responseText = result.response.text();
 
-        if (responseText.length > 2000) {
-            await message.reply(responseText.slice(0, 1990) + "... (message too long)");
-        } else {
+        if (responseText.length <= 2000) {
             await message.reply(responseText);
+        } else {
+            const chunkSize = 1900;
+            for (let i = 0; i < responseText.length; i += chunkSize) {
+                const chunk = responseText.slice(i, i + chunkSize);
+                if (i === 0) {
+                    await message.reply(chunk);
+                } else {
+                    await message.channel.send(chunk);
+                }
+            }
         }
 
     } catch (error) {
-        console.error("Gemini Error:", error.message);
-
-        if (error.status === 429 || (error.response && error.response.status === 429)) {
-            await message.reply("I'm overwhelmed! I hit my rate limit. Please wait a minute before asking again.");
+        console.error("Bot Error:", error.message);
+        if (error.code === 50035) {
+             await message.channel.send("The response was too large for Discord to handle.");
         } else {
-            await message.reply("I encountered an error processing your request.");
+             await message.channel.send("An error occurred while processing your request.");
         }
     }
 });
