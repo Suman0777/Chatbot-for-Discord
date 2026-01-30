@@ -13,7 +13,7 @@ async function listModels() {
     console.log("gemini-2.0-flash is WORKING!");
     
   } catch (error) {
-    console.log("❌ Model check failed. Error details:");
+    console.log("Model check failed. Error details:");
     console.log(error.message);
   }
 }

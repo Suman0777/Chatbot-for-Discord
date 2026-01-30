@@ -40,7 +40,7 @@ client.on("messageCreate", async (message) => {
         }
 
     } catch (error) {
-        console.error("Gemini Error:", error);
+        console.error("Gemini Error:", error.message);
 
         if (error.status === 429 || (error.response && error.response.status === 429)) {
             await message.reply("I'm overwhelmed! I hit my rate limit. Please wait a minute before asking again.");
